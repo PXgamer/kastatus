@@ -187,8 +187,7 @@
 				</ul>
 			</section>
 			<br />
-			<a href="/" class="btn"> LOGOUT </a>
-			<?php session_destroy() ?>
+			<a href="/logout/" class="btn"> LOGOUT </a>
 		</div>
 	</center>
 	<?php

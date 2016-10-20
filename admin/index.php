@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<?php
+				session_start();
+
+				if (!isset($_SESSION['user']) || !$_SESSION['user']) {
+					header('Location: /login/');
+				}
+
         include '../head.php';
         include '../backend/funcs.php';
         $db_conn = \funcs\Functions::conn();
@@ -182,6 +188,7 @@
 			</section>
 			<br />
 			<a href="/" class="btn"> LOGOUT </a>
+			<?php session_destroy() ?>
 		</div>
 	</center>
 	<?php

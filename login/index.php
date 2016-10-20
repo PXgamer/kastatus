@@ -23,8 +23,14 @@
       }
       if (isset($_POST['signup']) && $_POST['username'] !== '' && $_POST['password'] !== '') {
           $new_pass = password_hash($_POST['password'], CRYPT_BLOWFISH);
-          $sql = "INSERT INTO `users` (username, password) VALUES ('".mysqli_real_escape_string($db_conn, $_POST['username'])."', '".mysqli_real_escape_string($db_conn, $new_pass)."')";
-          $res = \funcs\Functions::query($db_conn, $sql);
+          $sql = "INSERT INTO `users` (username, password) VALUES (?, ?)";
+          $stmt = mysqli_prepare($db_conn, $sql);
+
+          $user_cleaned = \funcs\Functions::escape_string($_POST['username']);
+          $pass_cleaned = \funcs\Functions::escape_string($new_pass);
+          mysqli_stmt_bind_param($stmt, "ss", $user_cleaned, $pass_cleaned);
+
+          $res = \funcs\Functions::execute_stmt($stmt);
           $signedup = ($res) ? true : false;
       }
     ?>

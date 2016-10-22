@@ -7,13 +7,26 @@
       $db_conn = \funcs\Functions::conn();
 
       if (isset($_POST['login']) && $_POST['username'] !== '' && $_POST['password'] !== '') {
-          $sql = "SELECT password FROM `users` WHERE username='".mysqli_real_escape_string($db_conn, $_POST['username'])."'";
+          $sql = "SELECT id, username, password FROM `users` WHERE username='".mysqli_real_escape_string($db_conn, $_POST['username'])."'";
           $res = \funcs\Functions::query($db_conn, $sql);
+					$id = '';
+					$username = '';
           while ($row = mysqli_fetch_assoc($res)) {
+							$id = $row['id'];
+							$username = $row['username'];
               $hash = $row['password'];
           }
           $verified = password_verify($_POST['password'], $hash);
           if ($verified) {
+						session_start();
+
+						// Set the user object in session
+						$_SESSION['user'] = (object) [
+    						"id" => $id,
+    						"username" => $username,
+    						"loginDate" => date("Y-m-d h:i:sa")
+							];
+
               header('Location: /admin/');
           } elseif (!$hash) {
               echo 'User Does Not Exist';

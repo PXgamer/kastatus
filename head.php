@@ -1,7 +1,3 @@
-<?php
-$conf = file_get_contents('./config.json');
-$CONFIG = json_decode($conf);
-?>
 <head>
 	<?php /* Base meta (View port, encoding, etc.) */ ?>
 	<meta charset="utf-8">

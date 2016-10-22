@@ -1,3 +1,7 @@
+<?php
+$conf = file_get_contents('./config.json');
+$CONFIG = json_decode($conf);
+?>
 <!DOCTYPE html>
 <html>
 	<?php

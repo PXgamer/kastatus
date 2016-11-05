@@ -38,18 +38,6 @@ $CONFIG = json_decode($conf);
               echo 'Incorrect Password';
           }
       }
-      if (isset($_POST['signup']) && $_POST['username'] !== '' && $_POST['password'] !== '') {
-          $new_pass = password_hash($_POST['password'], CRYPT_BLOWFISH);
-          $sql = "INSERT INTO `users` (username, password) VALUES (?, ?)";
-          $stmt = mysqli_prepare($db_conn, $sql);
-
-          $user_cleaned = \funcs\Functions::escape_string($_POST['username']);
-          $pass_cleaned = \funcs\Functions::escape_string($new_pass);
-          mysqli_stmt_bind_param($stmt, "ss", $user_cleaned, $pass_cleaned);
-
-          $res = \funcs\Functions::execute_stmt($stmt);
-          $signedup = ($res) ? true : false;
-      }
     ?>
 	<style>
 	.btn {
@@ -105,18 +93,6 @@ $CONFIG = json_decode($conf);
 					</form>
 				</section>
 				<br/>
-				<section class="b-issue">
-					<h1>Sign Up</h1>
-
-					<form enctype="multipart/form-data" action="" method="post">
-						<label for="username">Username:</label> <input type="text" name="username"><br/><br/>
-						<label for="password">Password:</label> <input type="password" name="password"><br/><br/>
-						<button type="submit" name="signup" class="btn">Sign Up</button>
-					</form>
-                    <div class="status">
-                        <p><?php echo (isset($signedup)) ? 'Successfully signed up.' : 'Couldn\'t create account.'; ?><p>
-                    </div>
-				</section>
 			</div>
 		</div>
 	</body>

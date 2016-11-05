@@ -1,4 +1,10 @@
 <?php
+if (file_exists('install.php')) {
+  header('Location: /install.php');
+}
+?>
+<?php 'SELECT * FROM `users`' ?>
+<?php
 $conf = file_get_contents('./config.json');
 $CONFIG = json_decode($conf);
 ?>

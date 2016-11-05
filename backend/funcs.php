@@ -10,7 +10,7 @@ class Functions
         /* MySQL VARIABLES */
         $db_serv = 'localhost';
         $db_user = 'root';
-        $db_pass = 'root';
+        $db_pass = '';
         $db_name = 'kat_status';
 
         if (!self::$conn) {
